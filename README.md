@@ -1,17 +1,14 @@
 ![Yoda Logo](src/yoda.jpg "Yoda")
 
 
-## About
+## Welcome young Padawan
 
-A simple method to collect your links and saves into a file using Shell Script.
+Yoda is a simple method to collect your links and saves into a file using Shell Script.
 
 > May the Force be with you.
 
 
-## How it works?
-First of all, define where you want to save your "readlater" file, then make this script executable to easily run it.
-
-### Use the Force
+## Use the Force
 
 ```bash
 
@@ -29,13 +26,15 @@ $ chmod u+x path/to/yoda.sh
 
 ```
 
-### Train Yourself
+
+## Train Yourself
 
 -  Ask **Yoda** to use the force: `./yoda.sh 'ENTER URL HERE'`
 -  Check what **Yoda** saves: `./yoda.sh [ -l, --list ]`
 -  Feel the force of your favorites: `./yoda.sh [ -o, --open ]`
 
-### Become a Jedi
+
+## Become a Jedi
 
 If you prefer, put the following **alias** inside your `~./.bashrc` file:
 
