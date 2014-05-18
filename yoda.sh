@@ -18,10 +18,6 @@
 #       VIEW:   ./yoda.sh [ -l, --list ]
 #       OPEN:   ./yoda.sh [ -o, --open ]
 #
-# Assumptions:
-#       - There is not more than one url per line of text.
-#       - The url of interest is a simple one.
-#
 # Alias:
 #       alias yoda="bash ~/path/to/script/yoda.sh"
 # ---------------------------------------------------------------------------------------------------
