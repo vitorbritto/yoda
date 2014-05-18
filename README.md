@@ -1,4 +1,4 @@
-![Yoda Logo](src/logo.jpg "Yoda")
+![Yoda Logo](src/yoda.jpg "Yoda")
 
 A simple method to collect your links and saves into a file using Shell Script.
 
