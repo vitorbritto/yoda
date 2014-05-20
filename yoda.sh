@@ -109,7 +109,7 @@ fi
 
 # Show help option
 if [[ "$URL" == "-h" || "$URL" == "--help" ]]; then
-    yoda_open
+    yoda_help
     exit
 fi
 
