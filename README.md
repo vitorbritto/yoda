@@ -29,9 +29,10 @@ $ chmod u+x path/to/yoda.sh
 
 ## Train Yourself
 
--  Ask **Yoda** to use the force: `./yoda.sh 'ENTER URL HERE'`
--  Check what **Yoda** saves: `./yoda.sh [ -l, --list ]`
--  Feel the force of your favorites: `./yoda.sh [ -o, --open ]`
+- Ask **Yoda** to use the force: `./yoda.sh 'ENTER URL HERE'`
+- Check what **Yoda** saves: `./yoda.sh [ -l, --list ]`
+- Feel the force of your favorites: `./yoda.sh [ -o, --open ]`
+- Help you **Yoda** will: `./yoda.sh [ -h, --help ]`
 
 
 ## Become a Jedi
