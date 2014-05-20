@@ -46,6 +46,7 @@ Now, you can simply run:
 - `yoda 'ENTER URL HERE'`
 - `yoda -l, --list`
 - `yoda -o, --open`
+- `yoda -h, --help`
 
 
 ## License
