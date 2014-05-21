@@ -29,7 +29,7 @@ $ chmod u+x path/to/yoda.sh
 
 ## Train Yourself
 
-- Ask **Yoda** to use the force: `./yoda.sh 'ENTER URL HERE'`
+- Ask **Yoda** to use the force: `./yoda.sh 'NAME' 'http://URL'`
 - Check what **Yoda** saves: `./yoda.sh [ -l, --list ]`
 - Feel the force of your favorites: `./yoda.sh [ -o, --open ]`
 - Help you **Yoda** will: `./yoda.sh [ -h, --help ]`
