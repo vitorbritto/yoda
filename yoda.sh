@@ -65,12 +65,10 @@ main(){
   if [[ "$*" =~ "http://"  ]]; then
       yoda_add $*
       exit
-  else
-      echo "Sorry, any valid parameter."
   fi
   
-
-
+  echo "Sorry, any valid parameter."
+  exit
 }
 
 # Add URL
