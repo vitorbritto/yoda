@@ -43,7 +43,7 @@ If you prefer, put the following **alias** inside your `~./.bashrc` file:
 
 Now, you can simply run:
 
-- `yoda 'ENTER URL HERE'`
+- `yoda 'NAME' 'http://URL'`
 - `yoda -l, --list`
 - `yoda -o, --open`
 - `yoda -h, --help`
