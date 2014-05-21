@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # ---------------------------------------------------------------------------------------------------
 # Program: yoda.sh
@@ -13,7 +13,7 @@
 #       $ chmod u+x yoda.sh &&
 #
 # Usage:
-#       INSERT: ./yoda.sh 'ENTER URL HERE'
+#       INSERT: ./yoda.sh 'NAME' 'http://URL'
 #       VIEW:   ./yoda.sh [ -l, --list ]
 #       OPEN:   ./yoda.sh [ -o, --open ]
 #       HELP:   ./yoda.sh [ -h, --help ]
@@ -33,7 +33,6 @@
 FILE="FAVORITES.md"
 DIR="Desktop"
 OPEN_COMMAND="/usr/bin/open"
-URL="$1"
 CAT="cat -n $HOME/${DIR}/${FILE}"
 
 
@@ -41,10 +40,43 @@ CAT="cat -n $HOME/${DIR}/${FILE}"
 # | FUNCTIONS                                                                  |
 # ------------------------------------------------------------------------------
 
+main(){
+  #echo "Number of params = $#"
+
+  # View file option
+  if [[ "${1}" == "-l" || "${1}" == "--list" ]]; then
+      yoda_list ${1}
+      exit
+  fi
+
+  # Open file option
+  if [[ "${1}" == "-o" || "${1}" == "--open" ]]; then
+      yoda_open ${1}
+      exit
+  fi
+
+  # Show help option
+  if [[ "${1}" == "-h" || "${1}" == "--help" ]]; then
+      yoda_help ${1}
+      exit
+  fi
+
+  # Add url option
+  if [[ "$*" =~ "http://"  ]]; then
+      yoda_add $*
+      exit
+  else
+      echo "Sorry, any valid parameter."
+  fi
+  
+
+
+}
+
 # Add URL
 yoda_add() {
     echo "Saving..."
-    echo ${URL} >> $HOME/${DIR}/${FILE}
+    echo "${1} ${2}" >> $HOME/${DIR}/${FILE}
     echo "✔ Done!"
 }
 
@@ -74,6 +106,13 @@ YODA SAVES - May the Force be with your favorites
 
 Usage: ./yoda.sh [url, options]
 
+Example:
+Add a favorite with name
+$ yoda GitHub http://github.com
+
+Add a favorite without name
+$ yoda http://github.com
+
 Options:
     -h, --help      Print this help text
     -l, --list      Print a list of your favorites
@@ -92,29 +131,7 @@ EOT
 
 
 # ------------------------------------------------------------------------------
-# | OPTIONS                                                                    |
+# | MAIN OPTIONS                                                                    |
 # ------------------------------------------------------------------------------
 
-# View file option
-if [[ "$URL" == "-l" || "$URL" == "--list" ]]; then
-    yoda_list
-    exit
-fi
-
-# Open file option
-if [[ "$URL" == "-o" || "$URL" == "--open" ]]; then
-    yoda_open
-    exit
-fi
-
-# Show help option
-if [[ "$URL" == "-h" || "$URL" == "--help" ]]; then
-    yoda_help
-    exit
-fi
-
-# Add url option
-if [[ "$URL" ]]; then
-    yoda_add
-    exit
-fi
+main $*
