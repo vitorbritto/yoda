@@ -61,12 +61,19 @@ main(){
       exit
   fi
 
+  # Export bookmarks chrome
+  if [[ "${1}" == "-e" || "${1}" == "--export" ]]; then
+      _architerure archt
+      yoda_export_chrome $archt
+      exit
+  fi
+
   # Add url option
   if [[ "$*" =~ "http://"  ]]; then
       yoda_add $*
       exit
   fi
-  
+
   echo "Sorry, any valid parameter."
   exit
 }
@@ -93,11 +100,48 @@ yoda_open() {
     echo "✔ Done!"
 }
 
+yoda_export_chrome(){
+  _install_jq $1
+  file=~/Library/Application Scripts/Google/Chrome/Default/Bookmarks
+  echo "Cat file aqui"
+  cat ${file}
+  _install_jq $1
+
+}
+
+_architerure(){
+  archt="$(uname -m)"
+  if [ $archt == "x86_64" ]; then
+    ret='64'
+  else
+    ret='32'
+  fi
+  return $ret
+}
+
+_install_jq(){
+  #echo $1
+  _exists_jq
+  if [ "$?" == '0' ]; then
+    echo "Waiting install JQ form http://stedolan.github.io/jq/"
+    if [ "$1" == "64" ]; then
+      wget http://stedolan.github.io/jq/download/linux32/jq
+    else
+      wget http://stedolan.github.io/jq/download/linux64/jq
+    fi
+    chmod +x ./jq
+    #sudo cp jq /usr/bin
+  fi
+}
+
+_exists_jq(){
+  [ -f ./jq ] && return '1' || return '0'
+}
+
 # Everybody need some help
 yoda_help() {
 
 cat <<EOT
-
 ------------------------------------------------------------------------------
 YODA SAVES - May the Force be with your favorites
 ------------------------------------------------------------------------------
@@ -122,7 +166,6 @@ Copyright (c) Vitor Britto
 Licensed under the MIT license.
 
 ------------------------------------------------------------------------------
-
 EOT
 
 }
