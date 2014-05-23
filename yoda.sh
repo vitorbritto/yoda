@@ -105,10 +105,10 @@ yoda_export_chrome(){
   OS="$( uname )"
   if [ "$OS" == "Darwin" ]; then
     file="$HOME/Library/Application Support/Google/Chrome/Default/Bookmarks"
-  else 
+  else
     file="$HOME/.config/google-chrome/Default/Bookmarks"
-  fi 
-  while read line; do    
+  fi
+  while read line; do
     if [[ $line =~ '"name":' ]]; then
       fav=$line
     fi
@@ -118,7 +118,8 @@ yoda_export_chrome(){
       search2=',"url": '
       name=${fav//$search1/''}
       fav=${name//$search2/' '}
-      yoda_add "\${fav}"
+      read name url <<<$(IFS='" "'; echo $fav)
+      yoda_add "$name" "$url"
     fi
   done < "$file"
 }
