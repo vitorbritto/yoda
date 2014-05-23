@@ -101,12 +101,26 @@ yoda_open() {
 }
 
 yoda_export_chrome(){
-  _install_jq $1
-  file=~/Library/Application Scripts/Google/Chrome/Default/Bookmarks
-  echo "Cat file aqui"
-  cat ${file}
-  _install_jq $1
-
+  ach=$1
+  OS="$( uname )"
+  if [ "$OS" == "Darwin" ]; then
+    file="$HOME/Library/Application Support/Google/Chrome/Default/Bookmarks"
+  else 
+    file="$HOME/.config/google-chrome/Default/Bookmarks"
+  fi 
+  while read line; do    
+    if [[ $line =~ '"name":' ]]; then
+      fav=$line
+    fi
+    if [[ $fav =~ '"name":' && $line =~ '"http://' ]]; then
+      fav+=$line
+      search1='"name":'
+      search2=',"url": '
+      name=${fav//$search1/''}
+      fav=${name//$search2/' '}
+      yoda_add "\${fav}"
+    fi
+  done < "$file"
 }
 
 _architerure(){
@@ -119,24 +133,6 @@ _architerure(){
   return $ret
 }
 
-_install_jq(){
-  #echo $1
-  _exists_jq
-  if [ "$?" == '0' ]; then
-    echo "Waiting install JQ form http://stedolan.github.io/jq/"
-    if [ "$1" == "64" ]; then
-      wget http://stedolan.github.io/jq/download/linux32/jq
-    else
-      wget http://stedolan.github.io/jq/download/linux64/jq
-    fi
-    chmod +x ./jq
-    #sudo cp jq /usr/bin
-  fi
-}
-
-_exists_jq(){
-  [ -f ./jq ] && return '1' || return '0'
-}
 
 # Everybody need some help
 yoda_help() {
