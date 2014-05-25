@@ -62,6 +62,13 @@ main(){
       exit
   fi
 
+  # Export bookmarks chrome
+  if [[ "${1}" == "-e" || "${1}" == "--export" ]]; then
+      _architerure archt
+      yoda_export_chrome $archt
+      exit
+  fi
+
   # Add url option
   if [[ "$*" =~ "http://" ]]; then
       yoda_add $*
@@ -70,8 +77,8 @@ main(){
       echo "Sorry, any valid parameter."
   fi
 
-
-
+  echo "Sorry, any valid parameter."
+  exit
 }
 
 # Add URL
@@ -101,11 +108,45 @@ yoda_open() {
     echo "✔ Done!"
 }
 
+yoda_export_chrome(){
+  ach=$1
+  OS="$( uname )"
+  if [ "$OS" == "Darwin" ]; then
+    file="$HOME/Library/Application Support/Google/Chrome/Default/Bookmarks"
+  else
+    file="$HOME/.config/google-chrome/Default/Bookmarks"
+  fi
+  while read line; do
+    if [[ $line =~ '"name":' ]]; then
+      fav=$line
+    fi
+    if [[ $fav =~ '"name":' && $line =~ '"http://' ]]; then
+      fav+=$line
+      search1='"name":'
+      search2=',"url": '
+      name=${fav//$search1/''}
+      fav=${name//$search2/' '}
+      read name url <<<$(IFS='" "'; echo $fav)
+      yoda_add "$name" "$url"
+    fi
+  done < "$file"
+}
+
+_architerure(){
+  archt="$(uname -m)"
+  if [ $archt == "x86_64" ]; then
+    ret='64'
+  else
+    ret='32'
+  fi
+  return $ret
+}
+
+
 # Everybody need some help
 yoda_help() {
 
 cat <<EOT
-
 ------------------------------------------------------------------------------
 YODA SAVES - May the Force be with your favorites
 ------------------------------------------------------------------------------
@@ -130,7 +171,6 @@ Copyright (c) Vitor Britto
 Licensed under the MIT license.
 
 ------------------------------------------------------------------------------
-
 EOT
 
 }

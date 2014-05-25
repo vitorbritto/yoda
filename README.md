@@ -33,7 +33,7 @@ $ chmod u+x path/to/yoda.sh
 - Check what **Yoda** saves: `./yoda.sh [ -l, --list ]`
 - Feel the force of your favorites: `./yoda.sh [ -o, --open ]`
 - Help you **Yoda** will: `./yoda.sh [ -h, --help ]`
-
+- Ask **yoda** to export Bookmarks Chrome: `./yoda.sh [ -e, --export ]`
 
 ## Become a Jedi
 
@@ -47,7 +47,7 @@ Now, you can simply run:
 - `yoda -l, --list`
 - `yoda -o, --open`
 - `yoda -h, --help`
-
+- `yoda -e, --export`
 
 ## License
 
