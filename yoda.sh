@@ -34,6 +34,7 @@ FILE="FAVORITES.md"
 DIR="Desktop"
 OPEN_COMMAND="/usr/bin/open"
 CAT="cat -n $HOME/${DIR}/${FILE}"
+EXT="${FILE##*.}"
 
 
 # ------------------------------------------------------------------------------
@@ -69,9 +70,11 @@ main(){
   fi
 
   # Add url option
-  if [[ "$*" =~ "http://"  ]]; then
+  if [[ "$*" =~ "http://" ]]; then
       yoda_add $*
       exit
+  else
+      echo "Sorry, any valid parameter."
   fi
 
   echo "Sorry, any valid parameter."
@@ -81,7 +84,12 @@ main(){
 # Add URL
 yoda_add() {
     echo "Saving..."
-    echo "${1} ${2}" >> $HOME/${DIR}/${FILE}
+    if [[ "${EXT}" == 'md' ]]; then
+        echo "- [${1}](${2})" >> $HOME/${DIR}/${FILE}
+    else
+        echo "${1} ${2}" >> $HOME/${DIR}/${FILE}
+    fi
+
     echo "✔ Done!"
 }
 
@@ -143,7 +151,7 @@ cat <<EOT
 YODA SAVES - May the Force be with your favorites
 ------------------------------------------------------------------------------
 
-Usage: ./yoda.sh [url, options]
+Usage: ./yoda.sh <name> <url> [, options]
 
 Example:
 Add a favorite with name
@@ -169,7 +177,7 @@ EOT
 
 
 # ------------------------------------------------------------------------------
-# | MAIN OPTIONS                                                                    |
+# | MAIN OPTIONS                                                               |
 # ------------------------------------------------------------------------------
 
 main $*
